@@ -2,7 +2,7 @@
 
 ![](https://media.giphy.com/media/LiWsL77P4tA9a/giphy.gif)
 
-At SnapMobile, we use the [Ionic Framework](http://ionicframework.com/) for all of our iOS, Android, and WP development. We also (mainly Brandon… really only Brandon) think unicorns are a magical creature and can't get enough of them. What would make all of our lives better is an app that gets GIFs of unicorns from the [Giphy API](https://api.giphy.com/). 
+At SnapMobile, we use the [Ionic Framework](http://ionicframework.com/) for all of our iOS, Android, and Windows Phone development. We also (mainly Brandon… really only Brandon) think unicorns are a magical creature and can't get enough of them. What would make all of our lives better is an app that gets GIFs of unicorns from the [Giphy API](https://api.giphy.com/). 
 
 Here's what a user should be able to do in our dream app:
 

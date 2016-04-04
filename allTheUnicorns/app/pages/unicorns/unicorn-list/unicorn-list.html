@@ -7,7 +7,8 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="#unicorn of unicorns" (click)="unicornTapped($event, unicorn)">
+    <button ion-item *ngFor="#unicorn of unicorns?.data" (click)="unicornTapped($event, unicorn)">
+      <img src="{{unicorn.images.fixed_width.url}}">
     </button>
   </ion-list>
 </ion-content>

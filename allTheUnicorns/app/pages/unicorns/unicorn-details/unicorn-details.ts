@@ -9,6 +9,6 @@ export class UnicornDetailsPage {
 	selectedUnicorn: any;
 
 	constructor(private nav: NavController, navParams: NavParams) {
-
+    this.selectedUnicorn = navParams.get('unicorn');
   }
 }

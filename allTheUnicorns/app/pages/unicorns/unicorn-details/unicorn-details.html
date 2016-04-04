@@ -6,5 +6,7 @@
 </ion-navbar>
 
 <ion-content>
-
+  <div *ngIf="selectedUnicorn" class="selection">
+    <img src="{{selectedUnicorn.images.original.url}}">
+  </div>
 </ion-content>

@@ -3,7 +3,8 @@ import {App, IonicApp, Platform, MenuController} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HelloIonicPage} from './pages/hello-ionic/hello-ionic';
 import {ListPage} from './pages/list/list';
-
+import {URLSearchParams, Http, HTTP_PROVIDERS} from 'angular2/http';
+import {UnicornListPage} from './pages/unicorns/unicorn-list/unicorn-list';
 
 @App({
   templateUrl: 'build/app.html',
@@ -24,7 +25,9 @@ class MyApp {
     // set our app's pages
     this.pages = [
       { title: 'Hello Ionic', component: HelloIonicPage },
-      { title: 'My First List', component: ListPage }
+      { title: 'My First List', component: ListPage },
+      { title: 'Unicorns Page', component: UnicornListPage }
+
     ];
   }
 

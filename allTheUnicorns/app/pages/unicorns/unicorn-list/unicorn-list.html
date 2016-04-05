@@ -11,4 +11,11 @@
       <img src="{{unicorn.images.fixed_width.url}}">
     </button>
   </ion-list>
+
+	 <ion-infinite-scroll (infinite)="doInfinite($event)">
+	   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+	 </ion-infinite-scroll>
+
 </ion-content>
+
+

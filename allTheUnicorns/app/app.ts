@@ -27,7 +27,6 @@ class MyApp {
       { title: 'Hello Ionic', component: HelloIonicPage },
       { title: 'My First List', component: ListPage },
       { title: 'Unicorns Page', component: UnicornListPage }
-
     ];
   }
 

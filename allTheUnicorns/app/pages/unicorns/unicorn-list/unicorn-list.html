@@ -5,10 +5,19 @@
   <ion-title>Unicorn Page!</ion-title>
 </ion-navbar>
 
+
+
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="#unicorn of unicorns?.data" (click)="unicornTapped($event, unicorn)">
       <img src="{{unicorn.images.fixed_width.url}}">
     </button>
   </ion-list>
+
+	 <ion-infinite-scroll (infinite)="doInfinite($event)">
+	   <ion-infinite-scroll-content></ion-infinite-scroll-content>
+	 </ion-infinite-scroll>
+
 </ion-content>
+
+

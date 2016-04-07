@@ -33,6 +33,4 @@ export class GifSearch {
 	getSearchResults(searchTerms: string) {
 		this.searchParameter = searchTerms;
 		this.searchForGif();
-		return this.gifs;
-	}
 }

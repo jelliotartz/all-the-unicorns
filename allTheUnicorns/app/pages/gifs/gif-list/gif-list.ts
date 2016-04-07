@@ -54,6 +54,10 @@ export class GifListPage {
 
 	}
 
+	searchGiphy(searchbar) {
+		this._gifSearch.getSearchResults(searchbar.value);
+	}
+
 	gifTapped(event, gif) {
 		this.nav.push(GifDetailsPage, {
 			gif: gif

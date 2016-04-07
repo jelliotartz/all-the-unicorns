@@ -15,8 +15,6 @@ import {giphyItem} from '../giphy-item.interface';
 
 export class GifListPage {
 	selectedGif: any;
-	// gifs: giphyItem[] = [];
-	// gifs: Object[];
 	numberOfScrollRequests: number = 1;
 	searchParameter: string;
 
@@ -31,31 +29,15 @@ export class GifListPage {
   }
 
 	getUnicorns() {
-
 		this._gifSearch.getSearchResults('unicorns');
-
-		// let search = new URLSearchParams();
-		// let offsetForThisCall = `${numScrollRequests * 100}`;
-		
-		// this.numberOfScrollRequests += 1;
-
-		// search.set('q', 'unicorn');
-		// search.set('api_key', 'dc6zaTOxFJmzC');
-		// search.set('offset', offsetForThisCall);
-		// search.set('limit', '100');
-
-		// this.http.get('http://api.giphy.com/v1/gifs/search?', { search })
-		// 	.map((res: Response) => res.json())
-		// 	.subscribe(
-		// 		data => { this.gifs = data },
-		// 		err => console.error(err),
-		// 		() => console.log('done')
-		// 	);
-
 	}
 
 	searchGiphy(searchbar) {
 		this._gifSearch.getSearchResults(searchbar.value);
+	}
+
+	searchForTrendingGifs(event, gif) {
+		this._gifSearch.getTrendingGifs();
 	}
 
 	gifTapped(event, gif) {
@@ -63,9 +45,5 @@ export class GifListPage {
 			gif: gif
 		});
 	}
-
-	// onScroll() {
-	// 	console.log('scroll event')
-	// }
 }
 

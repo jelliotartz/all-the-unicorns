@@ -16,6 +16,7 @@ export class UnicornListPage {
 	selectedUnicorn: any;
 	unicorns: Array<{ id: string, url: string }> = [];
 	numberOfScrollRequests: number = 1;
+	searchParameter: string;
 
 	constructor(private nav: NavController, navParams: NavParams, private http: Http) {
 		this.getUnicorns(this.numberOfScrollRequests);
@@ -27,24 +28,26 @@ export class UnicornListPage {
     setTimeout(() => {
 			this.getUnicorns(this.numberOfScrollRequests);
       console.log('Async operation has ended');
-      // infiniteScroll.complete();
     }, 500);
   }
 
-	getUnicorns(offset: number) {
-		this.numberOfScrollRequests += 1;
+	getUnicorns(numScrollRequests: number) {
 		let search = new URLSearchParams();
+		let offsetForThisCall = `${numScrollRequests * 100}`;
+		
+		this.numberOfScrollRequests += 1;
+
 		search.set('q', 'unicorn');
 		search.set('api_key', 'dc6zaTOxFJmzC');
-		search.set('offset', `${offset * 100}`);
+		search.set('offset', offsetForThisCall);
 		search.set('limit', '100');
 
 		this.http.get('http://api.giphy.com/v1/gifs/search?', { search })
 			.map((res: Response) => res.json())
 			.subscribe(
-			data => { this.unicorns = data },
-			err => console.error(err),
-			() => console.log('done')
+				data => { this.unicorns = data },
+				err => console.error(err),
+				() => console.log('done')
 			);
 	}
 
@@ -57,4 +60,14 @@ export class UnicornListPage {
 	onScroll() {
 		console.log('scroll event')
 	}
+
 }
+
+interface giphyItem {
+	id: string;
+	thumbnailUrl: string;
+	url: string;
+}
+
+
+// this.unicorns = data

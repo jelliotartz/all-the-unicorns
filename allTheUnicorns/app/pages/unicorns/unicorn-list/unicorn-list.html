@@ -5,12 +5,19 @@
   <ion-title>Unicorn Page!</ion-title>
 </ion-navbar>
 
+<ion-searchbar (input)="getSearchResults($event)"></ion-searchbar>
 
 
 <ion-content>
   <ion-list>
     <button ion-item *ngFor="#unicorn of unicorns?.data" (click)="unicornTapped($event, unicorn)">
       <img src="{{unicorn.images.fixed_width.url}}">
+    </button>
+  </ion-list>
+
+  <ion-list>
+    <button ion-item *ngFor="#searchResult of searchResults?.data" (click)="searchResultTapped($event, searchResult)">
+      <img src="{{searchResult.images.fixed_with.url">
     </button>
   </ion-list>
 

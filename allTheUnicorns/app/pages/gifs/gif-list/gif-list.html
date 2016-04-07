@@ -2,11 +2,12 @@
   <button menuToggle>
     <ion-icon name="menu"></ion-icon>
   </button>
+  <button (click)="searchForTrendingGifs($event, gif)">Trending</button>
+
   <ion-title>GIF List</ion-title>
 </ion-navbar>
 
 <ion-searchbar (input)="searchGiphy($event)"></ion-searchbar>
-
 
 <ion-content>
   <ion-list>
@@ -14,7 +15,6 @@
       <img src="{{gif.images.fixed_width.url}}">
     </button>
   </ion-list>
-
 
 	 <ion-infinite-scroll (infinite)="doInfinite($event)">
 	   <ion-infinite-scroll-content></ion-infinite-scroll-content>

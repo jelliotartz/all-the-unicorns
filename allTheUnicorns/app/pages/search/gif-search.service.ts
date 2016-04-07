@@ -4,8 +4,6 @@ import {Injectable} from 'angular2/core';
 
 @Injectable()
 export class GifSearch {
-	// gifs: giphyItem[] = [];
-	// gifs: Array<Object>;
 	gifs: Object[];
 
 	numberOfScrollRequests: number = 1;
@@ -33,4 +31,21 @@ export class GifSearch {
 	getSearchResults(searchTerms: string) {
 		this.searchParameter = searchTerms;
 		this.searchForGif();
+	}
+
+	getTrendingGifs() {
+		console.log('made it this far!');
+		this.numberOfScrollRequests += 1;
+		let search = new URLSearchParams();
+		search.set('api_key', 'dc6zaTOxFJmzC');
+		search.set('offset', `${this.numberOfScrollRequests * 100}`);
+
+		this.http.get('http://api.giphy.com/v1/gifs/trending?', { search })
+			.map((res: Response) => res.json())
+			.subscribe(
+			data => { this.gifs = data },
+			err => console.error(err),
+			() => console.log('done')
+			);
+	}
 }

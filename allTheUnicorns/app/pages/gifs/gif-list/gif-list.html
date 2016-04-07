@@ -2,7 +2,7 @@
   <button menuToggle>
     <ion-icon name="menu"></ion-icon>
   </button>
-  <ion-title>Unicorn Page!</ion-title>
+  <ion-title>GIF List</ion-title>
 </ion-navbar>
 
 <ion-searchbar (input)="getSearchResults($event)"></ion-searchbar>
@@ -10,8 +10,8 @@
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="#unicorn of unicorns?.data" (click)="unicornTapped($event, unicorn)">
-      <img src="{{unicorn.images.fixed_width.url}}">
+    <button ion-item *ngFor="#gif of gifs?.data" (click)="gifTapped($event, gif)">
+      <img src="{{gif.images.fixed_width.url}}">
     </button>
   </ion-list>
 

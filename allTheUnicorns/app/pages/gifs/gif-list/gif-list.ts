@@ -2,19 +2,17 @@ import {Page, NavController, NavParams} from 'ionic-angular';
 import {URLSearchParams, Http, Response} from 'angular2/http';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
-import {UnicornDetailsPage} from '../unicorn-details/unicorn-details';
-import {InfiniteScroll} from 'angular2-infinite-scroll';
+import {GifDetailsPage} from '../gif-details/gif-details';
 
 
 @Page({
-	selector: 'UnicornListPage',
-	directives: [InfiniteScroll],
-  templateUrl: 'build/pages/unicorns/unicorn-list/unicorn-list.html'
+	selector: 'GifListPage',
+  templateUrl: 'build/pages/gifs/gif-list/gif-list.html'
 })
 
-export class UnicornListPage {
-	selectedUnicorn: any;
-	unicorns: Array<{ id: string, url: string }> = [];
+export class GifListPage {
+	selectedGif: any;
+	gifs: giphyItem[] = [];
 	numberOfScrollRequests: number = 1;
 	searchParameter: string;
 
@@ -45,15 +43,15 @@ export class UnicornListPage {
 		this.http.get('http://api.giphy.com/v1/gifs/search?', { search })
 			.map((res: Response) => res.json())
 			.subscribe(
-				data => { this.unicorns = data },
+				data => { this.gifs = data },
 				err => console.error(err),
 				() => console.log('done')
 			);
 	}
 
-	unicornTapped(event, unicorn) {
-		this.nav.push(UnicornDetailsPage, {
-			unicorn: unicorn
+	gifTapped(event, gif) {
+		this.nav.push(GifDetailsPage, {
+			gif: gif
 		});
 	}
 
@@ -69,5 +67,3 @@ interface giphyItem {
 	url: string;
 }
 
-
-// this.unicorns = data

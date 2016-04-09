@@ -40,6 +40,10 @@ export class GifListPage {
 		this._gifSearch.getTrendingGifs();
 	}
 
+	RandomGif(event, gif) {
+		this._gifSearch.getRandomGif();
+	}
+
 	gifTapped(event, gif) {
 		this.nav.push(GifDetailsPage, {
 			gif: gif

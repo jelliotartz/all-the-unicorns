@@ -34,7 +34,6 @@ export class GifSearch {
 	}
 
 	getTrendingGifs() {
-		console.log('made it this far!');
 		this.numberOfScrollRequests += 1;
 		let search = new URLSearchParams();
 		search.set('api_key', 'dc6zaTOxFJmzC');
@@ -43,9 +42,25 @@ export class GifSearch {
 		this.http.get('http://api.giphy.com/v1/gifs/trending?', { search })
 			.map((res: Response) => res.json())
 			.subscribe(
-			data => { this.gifs = data },
-			err => console.error(err),
-			() => console.log('done')
+				data => { this.gifs = data },
+				err => console.error(err),
+				() => console.log('done')
 			);
 	}
+
+	getRandomGif() {
+		// this.numberOfScrollRequests += 1;
+		let search = new URLSearchParams();
+		search.set('api_key', 'dc6zaTOxFJmzC');
+		search.set('limit', '5');
+
+		this.http.get('http://api.giphy.com/v1/gifs/random?', { search })
+			.map((res: Response) => res.json())
+			.subscribe(
+				data => { this.gifs = data },
+				err => console.error(err),
+				() => console.log('done')
+			);
+	}
+
 }

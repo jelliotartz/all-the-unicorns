@@ -2,23 +2,27 @@
   <button menuToggle>
     <ion-icon name="menu"></ion-icon>
   </button>
-  <button (click)="searchForTrendingGifs($event, gif)">Trending</button>
+  <button (click)="handleClickTrending($event)">Trending</button>
 
   <ion-title>GIF List</ion-title>
 </ion-navbar>
 
-<ion-searchbar (input)="searchGiphy($event)"></ion-searchbar>
+<ion-searchbar (input)="handleSearchbarSearch($event)"></ion-searchbar>
 
 <ion-content>
   <ion-list>
-    <button ion-item *ngFor="#gif of _gifSearch.gifs?.data" (click)="gifTapped($event, gif)">
-      <img src="{{gif.images.fixed_width.url}}">
-    </button>
+  <div class="row responsive-lg">
+    <div *ngFor="#gif of _gifSearch.gifs" class="col">
+      <button ion-item (click)="handleGifTapped($event, gif)">
+        <img src="{{gif.images.fixed_width_downsampled.url}}">
+      </button>
+    </div>
+    </div>
   </ion-list>
 
-	 <ion-infinite-scroll (infinite)="doInfinite($event)">
-	   <ion-infinite-scroll-content></ion-infinite-scroll-content>
-	 </ion-infinite-scroll>
+  <ion-infinite-scroll (infinite)="doInfinite($event)">
+    <ion-infinite-scroll-content></ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 
 </ion-content>
 

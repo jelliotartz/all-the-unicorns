@@ -1,51 +1,56 @@
 import {Page, NavController, NavParams} from 'ionic-angular';
 import {URLSearchParams, Http, Response} from 'angular2/http';
 import {Injectable} from 'angular2/core';
+import {Datum} from './giphyData.interface'
+
 
 @Injectable()
 export class GifSearch {
-	gifs: Object[];
-
-	numberOfScrollRequests: number = 1;
-	searchParameter: string;
+	gifs: Datum[];
+	display: string;
+	scrolling: boolean = false;
+	searchLimit: number;
 
 	constructor(private http: Http) {}
 
-	searchForGif() {
-		this.numberOfScrollRequests += 1;
-		let search = new URLSearchParams();
-		search.set('q', `${this.searchParameter}`);
-		search.set('api_key', 'dc6zaTOxFJmzC');
-		search.set('offset', `${this.numberOfScrollRequests * 100}`);
-		search.set('limit', '100');
+	getSearchResults(searchTerms, offset, limit) {
+		this.display = searchTerms;
+		let params: URLSearchParams = new URLSearchParams();
 
-		this.http.get('http://api.giphy.com/v1/gifs/search?', { search })
+		params.set('q', `${searchTerms}`);
+		params.set('api_key', 'dc6zaTOxFJmzC');
+		params.set('offset', `${offset}`);
+		params.set('limit', `${limit}`);
+
+		this._makeRequest('search', params)
+	}
+
+	getTrendingGifs(offset, limit) {
+		this.display = 'Trending'
+		let params: URLSearchParams = new URLSearchParams();
+
+		params.set('api_key', 'dc6zaTOxFJmzC');
+		params.set('offset', `${offset}`);
+		params.set('limit', `${limit}`);
+
+		this._makeRequest('trending', params)
+	}
+
+	_makeRequest(endPoint, params: URLSearchParams) {
+		this.http.get(`http://api.giphy.com/v1/gifs/${endPoint}?`, { search: params })
 			.map((res: Response) => res.json())
 			.subscribe(
-				data => { this.gifs = data },
+				data => { 
+					if (this.scrolling === false) {
+						this.gifs = data.data;
+						this.searchLimit = parseInt(data.pagination.total_count)
+					} else {
+						data.data.forEach(d => this.gifs.push(d))
+						this.scrolling = false;
+					}
+				},
 				err => console.error(err),
 				() => console.log('done')
-			);
-	}
-
-	getSearchResults(searchTerms: string) {
-		this.searchParameter = searchTerms;
-		this.searchForGif();
-	}
-
-	getTrendingGifs() {
-		console.log('made it this far!');
-		this.numberOfScrollRequests += 1;
-		let search = new URLSearchParams();
-		search.set('api_key', 'dc6zaTOxFJmzC');
-		search.set('offset', `${this.numberOfScrollRequests * 100}`);
-
-		this.http.get('http://api.giphy.com/v1/gifs/trending?', { search })
-			.map((res: Response) => res.json())
-			.subscribe(
-			data => { this.gifs = data },
-			err => console.error(err),
-			() => console.log('done')
-			);
+			);		
 	}
 }

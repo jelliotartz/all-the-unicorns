@@ -4,7 +4,6 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import {GifDetailsPage} from '../gif-details/gif-details';
 import {GifSearch} from '../../search/gif-search.service';
-import {giphyItem} from '../giphy-item.interface';
 
 
 @Page({
@@ -14,36 +13,59 @@ import {giphyItem} from '../giphy-item.interface';
 })
 
 export class GifListPage {
+	viewing: string;
 	selectedGif: any;
-	numberOfScrollRequests: number = 1;
+	numScrollRequests: number;
 	searchParameter: string;
+	searchbar: any;
+	numImages: number = 100;
 
-	constructor(private nav: NavController, navParams: NavParams, private http: Http, private _gifSearch: GifSearch) {
-			this.getUnicorns();
-		}
+	constructor(private nav: NavController, navParams: NavParams, private _gifSearch: GifSearch) {
+		this.viewing = 'unicorns';
+		this._gifSearch.getSearchResults('unicorns', 0, this.numImages);
+	}
 
 	doInfinite(infiniteScroll) {
-    setTimeout(() => {
-			this.getUnicorns();
-    }, 500);
+		this._gifSearch.scrolling = true;
+		this.numScrollRequests ? this.numScrollRequests += 1 : this.numScrollRequests = 1;
+
+		if ((this.numScrollRequests * this.numImages) >= this._gifSearch.searchLimit) {
+			this.numScrollRequests = 0;
+		}
+
+		switch (this.viewing) {
+			case 'unicorns':
+				this._gifSearch.getSearchResults('unicorns', (this.numScrollRequests * this.numImages), this.numImages);
+				break;
+			case 'search':
+				this._gifSearch.getSearchResults(this.searchbar.value, (this.numScrollRequests * this.numImages), this.numImages);
+				break;
+			case 'trending':
+				this._gifSearch.getTrendingGifs((this.numScrollRequests * this.numImages), this.numImages);
+				break;
+			default:
+				this._gifSearch.getSearchResults('unicorns', (this.numScrollRequests * this.numImages), this.numImages);
+				break;
+		}
+		infiniteScroll.complete();
   }
 
-	getUnicorns() {
-		this._gifSearch.getSearchResults('unicorns');
+	handleSearchbarSearch(searchbar) {
+		this.viewing = 'search';
+		this.numScrollRequests = 0;
+		this.searchbar = searchbar;
+		this._gifSearch.getSearchResults(this.searchbar.value, 0, this.numImages);
 	}
 
-	searchGiphy(searchbar) {
-		this._gifSearch.getSearchResults(searchbar.value);
+	handleClickTrending(event) {
+		this.viewing = 'trending'
+		this.numScrollRequests = 0;
+		this._gifSearch.getTrendingGifs(0, this.numImages);
 	}
 
-	searchForTrendingGifs(event, gif) {
-		this._gifSearch.getTrendingGifs();
-	}
-
-	gifTapped(event, gif) {
-		this.nav.push(GifDetailsPage, {
-			gif: gif
-		});
+	handleGifTapped(event, gif) {
+		this.selectedGif = gif;
+		this.nav.push(GifDetailsPage, { gif: gif });
 	}
 }
 

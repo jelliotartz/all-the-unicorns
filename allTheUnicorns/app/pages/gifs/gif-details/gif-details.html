@@ -7,6 +7,10 @@
 
 <ion-content>
   <div *ngIf="selectedGif" class="selection">
-    <img src="{{selectedGif.images.original.url}}">
+		<ion-card>
+			<ion-card-content>
+			    <img src="{{selectedGif.images.original.url}}">
+			</ion-card-content>
+		</ion-card>
   </div>
 </ion-content>

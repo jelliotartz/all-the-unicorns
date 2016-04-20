@@ -3,7 +3,6 @@ import {URLSearchParams, Http, Response} from 'angular2/http';
 import {Injectable} from 'angular2/core';
 import {Datum} from './giphyData.interface'
 
-
 @Injectable()
 export class GifSearch {
 	gifs: Datum[];

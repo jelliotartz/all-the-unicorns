@@ -4,7 +4,6 @@ import {StatusBar} from 'ionic-native';
 import {URLSearchParams, Http, HTTP_PROVIDERS} from 'angular2/http';
 import {GifListPage} from './pages/gifs/gif-list/gif-list';
 
-
 @App({
   templateUrl: 'build/app.html',
   config: {}
@@ -21,8 +20,10 @@ class MyApp {
     this.initializeApp();
 
     this.pages = [
-      { title: 'Gifs Page', component: GifListPage }
+      { title: 'Unicorns', component: GifListPage }
     ];
+
+    this.rootPage = GifListPage;
   }
 
   initializeApp() {

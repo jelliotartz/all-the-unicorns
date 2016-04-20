@@ -21,8 +21,15 @@ export class GifListPage {
 	numImages: number = 100;
 
 	constructor(private nav: NavController, navParams: NavParams, private _gifSearch: GifSearch) {
-		this.viewing = 'unicorns';
-		this._gifSearch.getSearchResults('unicorns', 0, this.numImages);
+		this.displayGifs();
+	}
+
+	displayGifs() {
+		if (this.viewing === 'trending') {
+			this._gifSearch.getTrendingGifs(0, this.numImages)
+		} else { 
+			this._gifSearch.getSearchResults('unicorns', 0, this.numImages)
+		}
 	}
 
 	doInfinite(infiniteScroll) {
@@ -47,6 +54,7 @@ export class GifListPage {
 				this._gifSearch.getSearchResults('unicorns', (this.numScrollRequests * this.numImages), this.numImages);
 				break;
 		}
+
 		infiniteScroll.complete();
   }
 
